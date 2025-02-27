@@ -10,7 +10,7 @@ body {
 }
 
 .container {
-    background-color: #ffffff;
+    background-color: #c4ceef;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -32,10 +32,14 @@ h1 {
 .file-input {
     margin-bottom: 15px;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #0938b1;
     border-radius: 4px;
-    width: 100%;
+    width: 90%;
     font-size: 14px;
+}
+
+#file-upload-button {
+    font-weight: bold!important;
 }
 
 .action-button {

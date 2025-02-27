@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react'; // Добавляем useRef
 import { PDFDocument, rgb } from 'pdf-lib';
 import './PdfNumberer.css'; // Импортируем файл стилей
 
 const PdfNumberer = () => {
     const [file, setFile] = useState(null);
     const [processedPdf, setProcessedPdf] = useState(null);
+    const fileInputRef = useRef(null); // Создаем ссылку на инпут
 
     const handleFileChange = (event) => {
         setFile(event.target.files[0]);
@@ -44,13 +45,26 @@ const PdfNumberer = () => {
         link.href = URL.createObjectURL(blob);
         link.download = 'numbered-pdf.pdf';
         link.click();
+
+        // Сбрасываем состояние и инпут
+        setFile(null);
+        setProcessedPdf(null);
+        if (fileInputRef.current) {
+            fileInputRef.current.value = ''; // Сбрасываем значение инпута
+        }
     };
 
     return (
         <div className="container">
             <h1>Нумерация страниц PDF</h1>
             <div className="upload-section">
-                <input type="file" accept="application/pdf" onChange={handleFileChange} className="file-input" />
+                <input
+                    type="file"
+                    accept="application/pdf"
+                    onChange={handleFileChange}
+                    className="file-input"
+                    ref={fileInputRef} // Привязываем ссылку к инпуту
+                />
                 <button onClick={addPageNumbers} disabled={!file} className="action-button">
                     Пронумеровать страницы
                 </button>
