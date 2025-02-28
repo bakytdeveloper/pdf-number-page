@@ -1,11 +1,11 @@
-import React, { useState, useRef } from 'react'; // Добавляем useRef
+import React, { useState, useRef } from 'react';
 import { PDFDocument, rgb } from 'pdf-lib';
-import './PdfNumberer.css'; // Импортируем файл стилей
+import './PdfNumberer.css';
 
 const PdfNumberer = () => {
     const [file, setFile] = useState(null);
     const [processedPdf, setProcessedPdf] = useState(null);
-    const fileInputRef = useRef(null); // Создаем ссылку на инпут
+    const fileInputRef = useRef(null); // Создаю ссылку на инпут
 
     const handleFileChange = (event) => {
         setFile(event.target.files[0]);
@@ -38,19 +38,23 @@ const PdfNumberer = () => {
     };
 
     const downloadPdf = () => {
-        if (!processedPdf) return;
+        if (!processedPdf || !file) return;
 
         const blob = new Blob([processedPdf], { type: 'application/pdf' });
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
-        link.download = 'numbered-pdf.pdf';
+
+        // Формируем имя файла
+        const originalFileName = file.name.replace(/\.pdf$/i, ''); // Убираем расширение .pdf, если есть
+        link.download = `${originalFileName}_numbered.pdf`; // Добавляем суффикс
+
         link.click();
 
-        // Сбрасываем состояние и инпут
+        // Сбрасываю состояние и инпут
         setFile(null);
         setProcessedPdf(null);
         if (fileInputRef.current) {
-            fileInputRef.current.value = ''; // Сбрасываем значение инпута
+            fileInputRef.current.value = ''; // Сбрасываю значение инпута
         }
     };
 
