@@ -45,8 +45,8 @@ const PdfNumberer = () => {
         link.href = URL.createObjectURL(blob);
 
         // Формируем имя файла
-        const originalFileName = file.name.replace(/\.pdf$/i, ''); // Убираем расширение .pdf, если есть
-        link.download = `${originalFileName}_numbered.pdf`; // Добавляем суффикс
+        const originalFileName = file.name.replace(/\.pdf$/i, ''); // Убираю расширение .pdf, если есть
+        link.download = `${originalFileName}_numbered.pdf`; // Добавляю суффикс
 
         link.click();
 
@@ -54,20 +54,20 @@ const PdfNumberer = () => {
         setFile(null);
         setProcessedPdf(null);
         if (fileInputRef.current) {
-            fileInputRef.current.value = ''; // Сбрасываю значение инпута
+            fileInputRef.current.value = '';
         }
     };
 
     return (
         <div className="container">
-            <h1>Нумерация страниц PDF</h1>
+            <h1>Нумерация страниц PDF файлов</h1>
             <div className="upload-section">
                 <input
                     type="file"
                     accept="application/pdf"
                     onChange={handleFileChange}
                     className="file-input"
-                    ref={fileInputRef} // Привязываем ссылку к инпуту
+                    ref={fileInputRef}
                 />
                 <button onClick={addPageNumbers} disabled={!file} className="action-button">
                     Пронумеровать страницы
